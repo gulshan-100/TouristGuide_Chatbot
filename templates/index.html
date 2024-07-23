@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Explorer Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>City Explorer Chatbot</h1>
+    <form id="cityForm">
+        <label for="city">Enter the city name:</label>
+        <input type="text" name="city" id="city" required>
+        <input type="submit" value="Explore">
+    </form>
+    <div id="output"></div>
+
+    <script>
+        // Add event listener to form submit
+        document.getElementById('cityForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting
+
+            // Get form data
+            var formData = new FormData(this);
+
+            // Display loading message
+            document.getElementById('output').innerHTML = 'Loading...';
+
+            // Fetch data from server
+            fetch('/results', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) // Parse response as JSON
+            .then(data => {
+                // Display response in output div
+                document.getElementById('output').innerHTML = '<p>' + data.output.replace(/\n/g, '<br>') + '</p>';
+            })
+            .catch(error => {
+                // Display error message if fetch fails
+                console.error('Error:', error);
+                document.getElementById('output').innerHTML = '<p>An error occurred. Please try again.</p>';
+            });
+        });
+    </script>
+</body>
+</html>
