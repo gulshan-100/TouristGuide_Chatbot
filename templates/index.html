@@ -16,22 +16,18 @@
     <div id="output"></div>
 
     <script>
-        // Add event listener to form submit
         document.getElementById('cityForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form from submitting
+            event.preventDefault(); 
 
-            // Get form data
             var formData = new FormData(this);
 
-            // Display loading message
             document.getElementById('output').innerHTML = 'Loading...';
 
-            // Fetch data from server
             fetch('/results', {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json()) // Parse response as JSON
+            .then(response => response.json()) 
             .then(data => {
                 // Display response in output div
                 document.getElementById('output').innerHTML = '<p>' + data.output.replace(/\n/g, '<br>') + '</p>';
