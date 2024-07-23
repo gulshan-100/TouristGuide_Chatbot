@@ -1,5 +1,3 @@
-# app.py
-
 from flask import Flask, request, render_template, jsonify, send_from_directory
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
